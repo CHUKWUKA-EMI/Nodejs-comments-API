@@ -1,8 +1,11 @@
 {
-  "name": "server",
+  "engines": {
+    "node": "10.x"
+  },
+  "name": "NodeJS-Comments-API",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "jest",
     "clean": "rimraf dist/",

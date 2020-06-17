@@ -1,11 +1,22 @@
-import db from "../DB/database";
-import authenticate from "../middleware/Authorization";
+"use strict";
+
+var _database = require("../DB/database");
+
+var _database2 = _interopRequireDefault(_database);
+
+var _Authorization = require("../middleware/Authorization");
+
+var _Authorization2 = _interopRequireDefault(_Authorization);
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
 
 const postComment = async (req, res) => {
   const { comment } = req.body;
   try {
     //create a comment
-    const commentBody = await db.comments.create({
+    const commentBody = await _database2.default.comments.create({
       userId: req.user.userId,
       body: comment,
       replies: null,
@@ -20,7 +31,7 @@ const postComment = async (req, res) => {
 const getComments = async (req, res) => {
   try {
     //get all comments
-    const comments = await db.comments.findAll();
+    const comments = await _database2.default.comments.findAll();
     return res.status(200).json(comments);
   } catch (err) {
     return res.status(500).send(err.message);
@@ -32,11 +43,11 @@ const updateComment = async (req, res) => {
   const { replies } = req.body;
   try {
     //update the comment by appending a reply to it
-    const [updated] = await db.comments.update(
+    const [updated] = await _database2.default.comments.update(
       {
-        replies: db.Sequelize.fn(
+        replies: _database2.default.Sequelize.fn(
           "array_append",
-          db.Sequelize.col("replies"),
+          _database2.default.Sequelize.col("replies"),
           replies + " " + ". Replier: " + req.user.email
         ),
       },
@@ -44,7 +55,7 @@ const updateComment = async (req, res) => {
     );
     //check if comment has been updated or replied to, then return it
     if (updated) {
-      const updatedComment = await db.comments.findOne({
+      const updatedComment = await _database2.default.comments.findOne({
         where: { comment_id: comment_id },
       });
       return res.status(200).json({ comment: updatedComment });
@@ -60,7 +71,7 @@ const deleteComments = async (req, res) => {
   const { comment_id } = req.params;
   try {
     //delete a comment whose id matches the req.params.id
-    const deleted = await db.comments.destroy({
+    const deleted = await _database2.default.comments.destroy({
       where: { comment_id: comment_id },
     });
     //check if comment is deleted successfully

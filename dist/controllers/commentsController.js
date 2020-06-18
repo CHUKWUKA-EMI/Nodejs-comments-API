@@ -48,7 +48,7 @@ const updateComment = async (req, res) => {
         replies: _database2.default.Sequelize.fn(
           "array_append",
           _database2.default.Sequelize.col("replies"),
-          replies + " " + ". Replier: " + req.user.email
+          replies + " " + "- " + req.user.email
         ),
       },
       { where: { comment_id: comment_id } }

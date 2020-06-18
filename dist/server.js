@@ -26,8 +26,8 @@ function _interopRequireDefault(obj) {
 
 const app = (0, _express2.default)();
 
-app.use(_express2.default.urlencoded({ extended: false }));
 app.use((0, _cors2.default)());
+app.use(_express2.default.urlencoded({ extended: false }));
 
 //create middlewares for routes
 app.use("/api", _usersRoutes2.default);

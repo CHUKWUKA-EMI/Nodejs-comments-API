@@ -3,10 +3,13 @@ import cors from "cors";
 import usersRoutes from "./Routes/usersRoutes";
 import commentRoutes from "./Routes/commentsRoutes";
 import sequelize from "./DB/connection";
+import bodyParser from "body-parser";
+
 const app = express();
 
-app.use(cors());
+app.use(bodyParser());
 app.use(express.urlencoded({ extended: false }));
+app.use(cors());
 
 //create middlewares for routes
 app.use("/api", usersRoutes);

@@ -20,14 +20,19 @@ var _connection = require("./DB/connection");
 
 var _connection2 = _interopRequireDefault(_connection);
 
+var _bodyParser = require("body-parser");
+
+var _bodyParser2 = _interopRequireDefault(_bodyParser);
+
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
 }
 
 const app = (0, _express2.default)();
 
-app.use((0, _cors2.default)());
+app.use((0, _bodyParser2.default)());
 app.use(_express2.default.urlencoded({ extended: false }));
+app.use((0, _cors2.default)());
 
 //create middlewares for routes
 app.use("/api", _usersRoutes2.default);

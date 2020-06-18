@@ -5,8 +5,8 @@ import commentRoutes from "./Routes/commentsRoutes";
 import sequelize from "./DB/connection";
 const app = express();
 
-app.use(express.urlencoded({ extended: false }));
 app.use(cors());
+app.use(express.urlencoded({ extended: false }));
 
 //create middlewares for routes
 app.use("/api", usersRoutes);
